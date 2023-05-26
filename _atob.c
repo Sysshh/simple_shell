@@ -18,12 +18,13 @@ int interactive(info_t *info)
  * @delim: the delimeter string
  * Return: 1 if true, 0 if false
  */
-int is_delim(char c, char *delim)
-{
-	while (*delim)
-		if (*delim++ == c)
-			return (1);
-	return (0);
+int is_delim(char c, char *delim) {
+  while (*delim) {
+    if (c == *delim++) {
+      return 1;
+    }
+  }
+  return 0;
 }
 
 /**
@@ -32,13 +33,10 @@ int is_delim(char c, char *delim)
  * Return: 1 if c is alphabetic, 0 otherwise
  */
 
-int _isalpha(int a)
-{
-	if ((b >= 'a' && b <= 'z') || (b >= 'A' && b <= 'Z'))
-		return (1);
-	else
-		return (0);
+int isalpha(int c) {
+  return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 }
+
 
 /**
  * _atob - converts a string to  integer
@@ -46,31 +44,20 @@ int _isalpha(int a)
  * Return: 0 if no numbers in string, converted number otherwise
  */
 
-int _atob(char *a)
-{
-	int d, sign = 1, flag = 0, output;
-	unsigned int result = 0;
+int atob(char *str) {
+  int sign = 1, i;
+  unsigned long long result = 0;
 
-	for (i = 0; a[d] != '\0' && flag != 2; i++)
-	{
-		if (a[d] == '-')
-			sign *= -1;
+  for (i = 0; str[i] != '\0'; i++) {
+    if (str[i] == '-') {
+      sign = -1;
+    } else if (str[i] >= '0' && str[i] <= '9') {
+      result *= 10;
+      result += str[i] - '0';
+    }
+  }
 
-		if (a[d] >= '0' && a[d] <= '9')
-		{
-			flag = 1;
-			result *= 10;
-			result += (a[i] - '0');
-		}
-		else if (flag == 1)
-			flag = 2;
-	}
-
-	if (sign == -1)
-		output = -result;
-	else
-		output = result;
-
-	return (output);
+  return sign * result;
 }
+
 
